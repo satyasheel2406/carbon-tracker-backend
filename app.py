@@ -9,28 +9,26 @@ CORS(app)
 def calculate():
     data = request.json
 
-    # CO₂ emission factors (kg CO₂ per unit)
     FACTORS = {
-        'car': 0.192,           # kg/km
-        'bike': 0.07,           # kg/km
-        'bus': 0.105,           # kg/km
-        'train': 0.041,         # kg/km
-        'flights': 0.15,        # kg/km (domestic average)
-        'electricity': 0.82,    # kg/kWh
-        'lpg': 2.983,           # kg/kg
-        'cigarettes': 0.014,    # kg/cigarette
-        'plastic': 0.0828       # kg/bottle (500ml)
+        'Car': 0.192,
+        'Bike': 0.07,
+        'Bus': 0.105,
+        'Train': 0.041,
+        'Flights': 0.15,
+        'Electricity': 0.82,
+        'Lpg': 2.983,
+        'Cigarettes': 0.014,
+        'Plastic': 0.0828
     }
 
-    # Normalize and calculate emissions
     emissions = {}
     total = 0.0
 
     for key, factor in FACTORS.items():
         raw = float(data.get(key, 0))
-        if key == "cigarettes":
-            raw *= 30  # daily -> monthly
-        emissions[key.capitalize()] = round(raw * factor, 2)
+        if key == "Cigarettes":
+            raw *= 30
+        emissions[key] = round(raw * factor, 2)
         total += raw * factor
 
     emissions['Total'] = round(total, 2)
