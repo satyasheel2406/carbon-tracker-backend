@@ -18,7 +18,10 @@ def calculate():
         'electricity': 0.82,
         'lpg': 2.983,
         'cigarettes': 0.014,
-        'plastic': 0.0828
+        'plastic': 0.0828,
+        'food': 0.0005,     
+        'shopping': 0.0009   
+
     }
 
     emissions = {}
