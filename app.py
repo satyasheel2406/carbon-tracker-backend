@@ -20,15 +20,17 @@ def calculate():
         'cigarettes': 0.014,
         'plastic': 0.0828,
         'food': 0.0005,     
-        'shopping': 0.0009   
-
+        'shopping': 0.0009
     }
 
     emissions = {}
     total = 0.0
 
     for key, factor in FACTORS.items():
-        raw = float(data.get(key, 0))  # 👈 lowercase key from frontend
+        try:
+            raw = float(data.get(key, 0) or 0)
+        except (ValueError, TypeError):
+            raw = 0
         if key == "cigarettes":
             raw *= 30
         emissions[key.capitalize()] = round(raw * factor, 2)
